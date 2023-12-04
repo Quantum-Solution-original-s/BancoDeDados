@@ -7,6 +7,7 @@ USE QuantumSensors;
 CREATE TABLE Endereco
 (
 idEndereco INT PRIMARY KEY AUTO_INCREMENT,
+empresa varchar(100) NOT NULL,
 estado VARCHAR(20) NOT NULL,
 UF CHAR(2) NOT NULL,
 cidade VARCHAR(50) NOT NULL,
@@ -16,6 +17,13 @@ bairro VARCHAR(45) NOT NULL,
 cep CHAR(8)
 );
 
+drop table endereco;
+drop table empresa;
+
+select * from empresa;z
+select * from endereco;
+
+truncate empresa;
 
 CREATE TABLE empresa
 (
@@ -24,12 +32,13 @@ cnpj CHAR(14) UNIQUE NOT NULL,
 nomeEmpresa VARCHAR(50) NOT NULL,
 email VARCHAR(50) NOT NULL,
 senha VARCHAR(20) NOT NULL,
-ddd CHAR(2) NOT NULL, 
+ddd CHAR(3) NOT NULL, 
 telefoneFixo CHAR(8) NOT NULL,
 tipoPlano VARCHAR(20) NOT NULL,
-CONSTRAINT chkPlano check(tipoPlano IN('QuantumStandard', 'QuantumPremium')), 
-dtAdesaoPlano DATE,
+CONSTRAINT chkPlano check(tipoPlano IN("Standart", "Premium")), 
+dtAdesaoPlano DATETIME default current_timestamp,
 tipoTabaco VARCHAR(45),
+qtdEstufa varchar(5),
 fkEndereco INT,
 CONSTRAINT fkEnd FOREIGN KEY (fkEndereco)
 	REFERENCES endereco (idEndereco)
@@ -79,7 +88,6 @@ CONSTRAINT fkSensor FOREIGN KEY (fkSensor)
 	REFERENCES sensor (idSensor),
 PRIMARY KEY (idRegistro, fkSensor)
 );
-
 
 
 -- INSERÇÃO DE REGISTROS NAS TABELAS
